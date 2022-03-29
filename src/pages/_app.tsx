@@ -3,15 +3,20 @@ import Header from '../components/Header';
 import Login from '.';
 import App from 'next/app';
 import { AuthProvider } from '../contexts/AuthContext'
+import { SessionProvider } from 'next-auth/react';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, session }) {
   return (
-    <div>
-      <Header />,
+    <>
+      <Header />
+      <main>
+      <SessionProvider>
       <AuthProvider>
-        <Component {...pageProps} />)
+        <Component {...pageProps} />
       </AuthProvider>
-    </div>
+      </SessionProvider>
+      </main>
+    </>
   )
 }
 
