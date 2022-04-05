@@ -5,36 +5,29 @@ interface ErrorResponseType {
     error: string
 }
 
-interface SucessResponseType {
-    _id: string;
-    cns: string;
-    cpf: string;
-    name: string;
-    age: number;
-}
-
 export default async (
     req: NextApiRequest,
-    res: NextApiResponse<ErrorResponseType | SucessResponseType>
+    res: NextApiResponse<ErrorResponseType | object[]>
 ): Promise<void> => {
 
 
     if (req.method === "POST") {
 
-        const { cns, cpf, name, age } = req.body;
+        const { cns, cpf, nameMedicine, status } = req.body;
 
-        if (!cns || !cpf || !name || !age) {
+        if (!cns || !nameMedicine) {
             res.status(400).json({ error: 'Missing parameters' });
             return;
         }
 
         const { db } = await connect();
 
-        const response = await db.collection('clients').insertOne({
+        const response = await db.collection('requests').insertOne({
             cns,
             cpf,
-            name,
-            age,
+            nameMedicine,
+            date: new Date(),
+            status:'RETIRAR',
         });
         res.status(200).json(response.ops[0])
     } else if (req.method === "GET") {
@@ -49,7 +42,7 @@ export default async (
         if (cns) {
             const { db } = await connect();
 
-            const response = await db.collection('clients').findOne({ cns });
+            const response = await db.collection('requests').find({ cns }).toArray();
 
             if (!response) {
                 res.status(400).json({ error: "CNS not found" });
@@ -60,7 +53,7 @@ export default async (
         else if (cpf) {
             const { db } = await connect();
 
-            const response = await db.collection('clients').findOne({ cpf });
+            const response = await db.collection('requests').find({ cpf }).toArray();
 
             if (!response) {
                 res.status(400).json({ error: "CPF not found" });
