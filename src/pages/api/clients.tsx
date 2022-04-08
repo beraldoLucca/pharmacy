@@ -21,53 +21,42 @@ export default async (
 
     if (req.method === "POST") {
 
-        const { cns, cpf, name, age } = req.body;
+        const { cns, cpf, name, age, status } = req.body;
 
-        if (!cns || !cpf || !name || !age) {
+        if (!cns) {
             res.status(400).json({ error: 'Missing parameters' });
             return;
         }
 
         const { db } = await connect();
 
-        const response = await db.collection('clients').insertOne({
-            cns,
-            cpf,
-            name,
-            age,
-        });
-        res.status(200).json(response.ops[0])
-    } else if (req.method === "GET") {
-        const { cns } = req.body;
-        const { cpf } = req.body;
-
-        if (!cns && !cpf) {
-            res.status(400).json({ error: 'Missing cns and CPF' });
+        const cnsExists = await db
+            .collection('clients')
+            .findOne({ cns: cns})
+        
+        if(!cnsExists){
+            if(!cpf || !name || !age){
+                res.status(400).json({ error: 'É necessário passar o CPF, o nome e a idade' });
+                return;
+            }
+            const response = await db.collection('clients').insertOne({
+                cns,
+                cpf,
+                name,
+                age,
+                status: ['ATIVO'],
+            });
+            res.status(200).json(response.ops[0])
             return;
         }
 
-        if (cns) {
-            const { db } = await connect();
+        const statusClient = {
+            status: 'INATIVO',
+        };
 
-            const response = await db.collection('clients').findOne({ cns });
+        await db.collection('clients').updateOne({ cns: cns}, {$set: {status: statusClient}});
 
-            if (!response) {
-                res.status(400).json({ error: "CNS not found" });
-                return;
-            }
-            res.status(200).json(response);
-        }
-        else if (cpf) {
-            const { db } = await connect();
-
-            const response = await db.collection('clients').findOne({ cpf });
-
-            if (!response) {
-                res.status(400).json({ error: "CPF not found" });
-                return;
-            }
-            res.status(200).json(response);
-        }
+        res.status(200).json(status);
     }
     else {
         res.status(400).json({ error: 'Wrong request Method' });

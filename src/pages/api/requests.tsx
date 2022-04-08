@@ -1,3 +1,4 @@
+import { ObjectID } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
 import connect from '../../../utils/database'
 
@@ -13,7 +14,7 @@ export default async (
 
     if (req.method === "POST") {
 
-        const { cns, cpf, nameMedicine, status } = req.body;
+        const { request_id, cns, cpf, nameMedicine, status } = req.body;
 
         if (!cns || !nameMedicine) {
             res.status(400).json({ error: 'Missing parameters' });
@@ -22,45 +23,40 @@ export default async (
 
         const { db } = await connect();
 
+        const cnsExists = await db
+            .collection('requests')
+            .findOne({ cns: cns})
+        
+        if(!cnsExists){
+            res.status(400).json({ error: `Pedido com o cns ${cns} não existe` });
+            return;
+        }
+        
+        const requestExists = await db
+            .collection('requests')
+            .findOne({ _id: new ObjectID(request_id)})
+
+        if(requestExists){
+            
+            const statusRequest = {
+                status: 'RETIRADO',
+            };
+    
+            await db.collection('requests').updateOne({ _id: new ObjectID(request_id) }, {$set: {status: statusRequest}});
+    
+            res.status(200).json(status);
+            return;
+        }
+
         const response = await db.collection('requests').insertOne({
             cns,
             cpf,
             nameMedicine,
-            date: new Date(),
-            status:'RETIRAR',
+            dateRequest: new Date(),
+            dateWithdrawal : '',
+            status: ['RETIRAR'],
         });
         res.status(200).json(response.ops[0])
-    } else if (req.method === "GET") {
-        const { cns } = req.body;
-        const { cpf } = req.body;
-
-        if (!cns && !cpf) {
-            res.status(400).json({ error: 'Missing cns and CPF' });
-            return;
-        }
-
-        if (cns) {
-            const { db } = await connect();
-
-            const response = await db.collection('requests').find({ cns }).toArray();
-
-            if (!response) {
-                res.status(400).json({ error: "CNS not found" });
-                return;
-            }
-            res.status(200).json(response);
-        }
-        else if (cpf) {
-            const { db } = await connect();
-
-            const response = await db.collection('requests').find({ cpf }).toArray();
-
-            if (!response) {
-                res.status(400).json({ error: "CPF not found" });
-                return;
-            }
-            res.status(200).json(response);
-        }
     }
     else {
         res.status(400).json({ error: 'Wrong request Method' });

@@ -18,7 +18,7 @@ export default async(
 
     if (req.method === "POST"){
 
-        const{ name } = req.body;
+        const{ name, quantity } = req.body;
 
         if( !name){
             res.status(400).json({ error: 'Missing parameters'});
@@ -27,29 +27,28 @@ export default async(
 
         const {db} = await connect();
 
+        const medicineNameExists = await db
+            .collection('medicines')
+            .findOne({ name: name})
+
+
+        const newMedicine = {
+            name,
+            quantity,
+        }
+
+        if(medicineNameExists){
+            await db.collection('medicines').updateOne({ name: name }, {$set: {status: newMedicine}});
+    
+            res.status(200).json(name);
+            return;
+        }
+        else{
         const response = await db.collection('medicines').insertOne({
             name, 
         });
-        res.status(200).json(response.ops[0])
-    }else if(req.method === "GET"){
-        const{ name } = req.body;
-
-        if(!name){
-            res.status(400).json({error: 'Missing medicine name'});
-            return;
-        }
-
-        const {db} = await connect();
-
-        const response = await db.collection('medicines').findOne({ name });
-
-        if(!response){
-            res.status(400).json({ error: "name not found"});
-            return;
-        }
-        res.status(200).json(response);
+        res.status(200).json(response.ops[0])}
     }
-    
     else{
         res.status(400).json({error: 'Wrong request Method'});
         }
