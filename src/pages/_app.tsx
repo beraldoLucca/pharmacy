@@ -5,16 +5,16 @@ import App from 'next/app';
 import { AuthProvider } from '../contexts/AuthContext'
 import { SessionProvider } from 'next-auth/react';
 
-function MyApp({ Component, pageProps, session }) {
+function MyApp({ Component, pageProps}) {
   return (
     <>
       <Header />
       <main>
-      <SessionProvider>
-      <AuthProvider>
+      {/* <SessionProvider session={session}> */}
+      {/* <AuthProvider> */}
         <Component {...pageProps} />
-      </AuthProvider>
-      </SessionProvider>
+      {/* </AuthProvider>
+      </SessionProvider> */}
       </main>
     </>
   )

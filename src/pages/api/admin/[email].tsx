@@ -6,11 +6,8 @@ interface ErrorResponseType {
 }
 
 interface SucessResponseType {
-    _id: string;
-    cns: string;
-    cpf: string;
-    name: string;
-    age: number;
+    email: string,
+    pwd: string,
 }
 
 export default async (
@@ -19,21 +16,21 @@ export default async (
 ): Promise<void> => {
 
 
-    if (req.method === "GET") {
-        const { cns } = req.query;
-        // const { cpf } = req.query;
+    if (req.method === "POST") {
+        const { email } = req.query;
+        const { pwd } = req.body;
     
 
-        if (!cns) {
+        if (!email) {
             res.status(400).json({ error: 'Missing cns and CPF' });
             return;
         }
             const { db } = await connect();
 
-            const response = await db.collection('clients').findOne({ cns });
+            const response = await db.collection('admin').findOne({ email: email});
 
             if (!response) {
-                res.status(400).json({ error: "CNS not found" });
+                res.status(400).json({ error: "PWD not found" });
                 return;
             }
             res.status(200).json(response);

@@ -8,23 +8,60 @@ import Home from './home';
 import Router from 'next/router';
 import { useSession, signIn, signOut } from "next-auth/react"
 import { NextPage } from 'next';
+import useSWR from 'swr';
+import api from '../../utils/api';
+import  ReactDOM  from 'react-dom';
+import { getSession } from 'next-auth/react';
 
 export default function Component() {
-  const { data: session } = useSession();
-  if (session) {
-    return (
-      <>
-        <Home/>
-      </>
-    )
-  }
-  return (
-    <>
-      <Button className={styles.botao} onClick={() => signIn('auth0', {callbackUrl: 'http://localhost:3000/api/auth/callback/auth0'})}>Logar</Button>
-    </>
-  )
-}
+  const LogIn = (event:any) => {
+    event.preventDefault();
 
+    return event.target.email.value
+    // const data= {
+    //     email : event.target.email.value,
+    //     password : event.target.senha.value, 
+    // }
+    // api.post("/user/login",data).then(response =>{
+    //     if(response.data){
+    //         const token = response.data
+    //         const data:any = jwt(token)
+    //         setUserRole(data.role)
+    //         login(response.data);
+    //         navigate('/');
+    //     }
+    // })
+    // const {data, error} = useSWR(`/api/admin/${email}`, api);
+}
+  
+
+  // const {data, error} = useSWR(`/api/admin/${session}`, api);
+
+  // if(error){
+  //   console.log(error)
+  // }
+
+  // if(data){
+  //   console.log(data)
+  // }
+  // const { data: session } = useSession();
+  // const {data, error} = useSWR(`/api/admin/${session?.user.email}`, api);
+  
+      
+          return (
+            <div>
+            
+              <Button className={styles.botao} onClick={() => signIn('auth0', {callbackUrl: 'http://localhost:3000/api/auth/callback/auth0'})}>
+                Logar</Button>
+            </div>
+          )
+        
+};
+{/* {!session && (
+        <Button className={styles.botao} onClick={() => signIn('auth0', {callbackUrl: 'http://localhost:3000/api/auth/callback/auth0'})}>
+          Logar</Button>)}
+      {session && (<Home/>) && (
+      <Button className={styles.botao} onClick={() => signOut({callbackUrl: 'http://localhost:3000/'})}>Sair</Button>)}   */}
 
 // const handleSubmit = (event) => {
 //   event.preventDefault();
