@@ -24,7 +24,7 @@ export default async (
             const { db } = await connect();
 
             const response = await db.collection('requests').find({ cns }).toArray();
-            if (!response) {
+            if (!response || response.length == 0) {
                 res.status(400).json({ error: "CNS not found" });
                 return;
             }

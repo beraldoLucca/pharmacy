@@ -18,12 +18,16 @@ export default function Home(){
           <Button className={styles.button}>Cadastrar remédios</Button>
           </Link>
           <br></br>
+          <Link href="/searchAllPatients">
+          <Button className={styles.button}>Visualizar todos os pacientes</Button>
+          </Link>
+          <br></br>
           <Link href="/searchPatientRequests">
-          <Button className={styles.button}>Visualizar histórico de pacientes</Button>
+          <Button className={styles.button}>Visualizar histórico de pedido de um paciente</Button>
           </Link>
           <br></br>
           <Link href="/writeOffPatient">
-          <Button className={styles.button}>Dar baixa em um paciente</Button>
+          <Button className={styles.button}>Dar baixa em um pedido</Button>
           </Link>
           <br></br>
           <Link href="/">

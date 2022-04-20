@@ -28,7 +28,7 @@ export default async (
             .findOne({ cns: cns})
         
         if(!cnsExists){
-            res.status(400).json({ error: `Pedido com o cns ${cns} não existe` });
+            res.status(400).json({ error: `Cliente com o cns ${cns} não existe` });
             return;
         }
         
@@ -38,11 +38,10 @@ export default async (
 
         if(requestExists){
             
-            const statusRequest = {
-                status: 'RETIRADO',
-            };
+            const statusRequest = 'RETIRADO';
+            const dataWithdrawal = new Date();
     
-            await db.collection('requests').updateOne({ _id: new ObjectID(request_id) }, {$set: {status: statusRequest}});
+            await db.collection('requests').updateOne({ _id: new ObjectID(request_id) }, {$set: {status: statusRequest, dateWithdrawal: dataWithdrawal}});
     
             res.status(200).json(status);
             return;
@@ -53,8 +52,7 @@ export default async (
             cpf,
             nameMedicine,
             dateRequest: new Date(),
-            dateWithdrawal : '',
-            status: ['RETIRAR'],
+            status: 'RETIRAR',
         });
         res.status(200).json(response.ops[0])
     }

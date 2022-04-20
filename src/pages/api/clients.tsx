@@ -35,7 +35,7 @@ export default async (
             .findOne({ cns: cns})
         
         if(!cnsExists){
-            if(!cpf || !name || !age){
+            if(!name || !age){
                 res.status(400).json({ error: 'É necessário passar o CPF, o nome e a idade' });
                 return;
             }
@@ -44,15 +44,13 @@ export default async (
                 cpf,
                 name,
                 age,
-                status: ['ATIVO'],
+                status: 'ATIVO',
             });
             res.status(200).json(response.ops[0])
             return;
         }
 
-        const statusClient = {
-            status: 'INATIVO',
-        };
+        const statusClient = 'INATIVO';
 
         await db.collection('clients').updateOne({ cns: cns}, {$set: {status: statusClient}});
 

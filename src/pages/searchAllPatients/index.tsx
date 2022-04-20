@@ -1,7 +1,7 @@
 import axios from "axios";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { Button } from "react-bootstrap";
-import styles from './stylesPatient.module.scss';
+import styles from './stylesListPatients.module.scss';
 import { Link } from "react-router-dom";
 import { format } from 'date-fns';
 import classNames from "classnames";
@@ -19,18 +19,16 @@ interface Patient {
 }
 
 export default function patientPage(props): JSX.Element {
-    const isRetirado = "RETIRADO";
-    const propsRequest = props.patient;
-    const requestList = propsRequest.map((prop) =>
+    const propsPatients = props.patientList;
+    const patientList = propsPatients.map((prop) =>
     
         <tr className={styles.tr}>
             <td className={styles.td}>{prop.cns}</td>
             <td className={styles.td}>{prop.cpf}</td>
-            <td className={styles.td}>{prop.nameMedicine}</td>
-            <td className={styles.td}>{format(new Date(prop.dateRequest), 'dd.MM.yyyy')}</td>
-            {prop.dateWithdrawal != null && <td className={styles.td}>{format(new Date(prop.dateWithdrawal), 'dd.MM.yyyy')}</td>}   
-            {prop.dateWithdrawal == null && <td className={styles.td}></td>}
-            <button className={prop.status==isRetirado ? styles.buttonretirado : styles.buttonretirar}>{prop.status}</button>
+            <td className={styles.td}>{prop.name}</td>
+            <td className={styles.td}>{prop.age}</td>
+            <td className={styles.td}>{prop.status}</td>
+            {/* <button className={prop.status==isRetirado ? styles.buttonretirado : styles.buttonretirar}>{prop.status}</button> */}
         </tr>
     );
     return (
@@ -40,17 +38,16 @@ export default function patientPage(props): JSX.Element {
                     <tr className={styles.tr}>
                         <th className={styles.td}>CNS</th>
                         <th className={styles.td}>CPF</th>
-                        <th className={styles.td}>REMÉDIO</th>
-                        <th className={styles.td}>DATA DO PEDIDO</th>
-                        <th className={styles.td}>DATA DE RETIRADA</th>
+                        <th className={styles.td}>NOME</th>
+                        <th className={styles.td}>IDADE</th>
                         <th className={styles.td}>STATUS</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {requestList}
+                    {patientList}
                 </tbody>
             </table>
-            <a href="/writeOffPatient">
+            <a href="/home">
                 <Button className={styles.inputSubmitComeback}>Voltar</Button>
             </a>
         </div>)
@@ -59,12 +56,10 @@ export default function patientPage(props): JSX.Element {
 export const getServerSideProps: GetServerSideProps = async (
     context: GetServerSidePropsContext
 ) => {
-    const cns = context.query.cns as string;
 
-    const response = await axios.get(`http://localhost:3000/api/request/${cns}`);
-    const patient = response.data;
-    // console.log(patient[0].cns)
+    const response = await axios.get("http://localhost:3000/api/clientsList");
+    const patientList = response.data;
     return {
-        props: { patient },
+        props: { patientList },
     };
 };

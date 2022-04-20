@@ -47,7 +47,7 @@ const SearchPage: NextPage = () => {
                 <form onSubmit={handleSearch}>
                     <input className={styles.inputText}
                         type="text"
-                        placeholder="Digite o paciente que você procura..."
+                        placeholder="Digite o CNS do paciente que você procura..."
                     />
                     <br></br>
                     <input className={styles.inputSubmit} type="submit" value="Pesquisar" />
