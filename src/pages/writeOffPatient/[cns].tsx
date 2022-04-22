@@ -21,6 +21,9 @@ interface Patient {
 export default function patientPage(props): JSX.Element {
     const isRetirado = "RETIRADO";
     const propsRequest = props.patient;
+    function mostrar(){
+        console.log("ok")
+    }
     const requestList = propsRequest.map((prop) =>
     
         <tr className={styles.tr}>
@@ -30,7 +33,7 @@ export default function patientPage(props): JSX.Element {
             <td className={styles.td}>{format(new Date(prop.dateRequest), 'dd.MM.yyyy')}</td>
             {prop.dateWithdrawal != null && <td className={styles.td}>{format(new Date(prop.dateWithdrawal), 'dd.MM.yyyy')}</td>}   
             {prop.dateWithdrawal == null && <td className={styles.td}></td>}
-            <button className={prop.status==isRetirado ? styles.buttonretirado : styles.buttonretirar}>{prop.status}</button>
+            <button onClick={mostrar} className={prop.status==isRetirado ? styles.buttonretirado : styles.buttonretirar}>{prop.status}</button>
         </tr>
     );
     return (

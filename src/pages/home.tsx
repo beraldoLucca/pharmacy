@@ -15,7 +15,15 @@ export default function Home(){
         // <div>
           <div>
           <Link href="/medicineFile">
-          <Button className={styles.button}>Cadastrar remédios</Button>
+          <Button className={styles.button}>Cadastrar remédio</Button>
+          </Link>
+          <br></br>
+          <Link href="/medicineFile">
+          <Button className={styles.button}>Cadastrar paciente</Button>
+          </Link>
+          <br></br>
+          <Link href="/insertRequest">
+          <Button className={styles.button}>Cadastrar pedido</Button>
           </Link>
           <br></br>
           <Link href="/searchAllPatients">

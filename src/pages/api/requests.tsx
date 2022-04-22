@@ -24,11 +24,20 @@ export default async (
         const { db } = await connect();
 
         const cnsExists = await db
-            .collection('requests')
+            .collection('clients')
             .findOne({ cns: cns})
         
         if(!cnsExists){
             res.status(400).json({ error: `Cliente com o cns ${cns} não existe` });
+            return;
+        }
+
+        const nameMedicineExists = await db
+            .collection('medicines')
+            .findOne({ name: nameMedicine})
+        
+        if(!nameMedicineExists){
+            res.status(400).json({ error: `Remédio ${nameMedicine} não existe` });
             return;
         }
         
