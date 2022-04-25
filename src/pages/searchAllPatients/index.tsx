@@ -3,6 +3,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { Button } from "react-bootstrap";
 import styles from './stylesListPatients.module.scss';
 import { Link } from "react-router-dom";
+import Router from 'next/router';
 import { format } from 'date-fns';
 import classNames from "classnames";
 
@@ -19,7 +20,20 @@ interface Patient {
 }
 
 export default function patientPage(props): JSX.Element {
+    function clicar(cns: string){
+        const data = {cns};
+        try {
+            axios.post("/api/clients", data);
+            alert("Cliente atualizado com sucesso!");
+            Router.push('/searchAllPatients')
+        } catch (error) {
+            alert("Não foi possível realizar um novo pedido");
+        }
+        
+    }
+    
     const propsPatients = props.patientList;
+    
     const patientList = propsPatients.map((prop) =>
     
         <tr className={styles.tr}>
@@ -28,7 +42,7 @@ export default function patientPage(props): JSX.Element {
             <td className={styles.td}>{prop.name}</td>
             <td className={styles.td}>{prop.age}</td>
             <td className={styles.td}>{prop.status}</td>
-            {/* <button className={prop.status==isRetirado ? styles.buttonretirado : styles.buttonretirar}>{prop.status}</button> */}
+            <button className={styles.buttonretirado} onClick={() => clicar(prop.cns)}>Inativar</button>
         </tr>
     );
     return (
@@ -41,6 +55,7 @@ export default function patientPage(props): JSX.Element {
                         <th className={styles.td}>NOME</th>
                         <th className={styles.td}>IDADE</th>
                         <th className={styles.td}>STATUS</th>
+                        <th className={styles.td}></th>
                     </tr>
                 </thead>
                 <tbody>
