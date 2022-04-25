@@ -18,7 +18,7 @@ export default function Home(){
           <Button className={styles.button}>Cadastrar remédio</Button>
           </Link>
           <br></br>
-          <Link href="/medicineFile">
+          <Link href="/newPatient">
           <Button className={styles.button}>Cadastrar paciente</Button>
           </Link>
           <br></br>
