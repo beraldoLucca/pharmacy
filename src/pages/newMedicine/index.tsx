@@ -3,7 +3,7 @@ import useSWR from 'swr';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from '../insertRequest/stylesRequest.module.scss';
+import styles from '../newRequest/stylesRequest.module.scss';
 import api from '../../../utils/api';
 import axios from 'axios';
 
