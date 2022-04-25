@@ -84,7 +84,7 @@ const InsertRequestPage: NextPage = () => {
                     <input className={styles.inputSubmit} type="submit" value="Cadastrar" />
                     <br></br>
                     <Link href={"/home"}>
-                    <input className={styles.inputSubmit} type="submit" value="Voltar" />
+                    <input className={styles.inputSubmit} type="submit" value="Cancelar" />
                     </Link>
                 </form>
             </div>

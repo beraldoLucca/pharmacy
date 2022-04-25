@@ -46,6 +46,7 @@ export default async(
         else{
         const response = await db.collection('medicines').insertOne({
             name, 
+            quantity
         });
         res.status(200).json(response.ops[0])}
     }
