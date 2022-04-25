@@ -9,12 +9,12 @@ import Component from ".";
 export default function Home(){
 
     // const { data: session } = useSession();
-    
+
     // if(session){
         return (
         // <div>
           <div>
-          <Link href="/medicineFile">
+          <Link href="/newMedicine">
           <Button className={styles.button}>Cadastrar remédio</Button>
           </Link>
           <br></br>
