@@ -17,7 +17,7 @@ export default async (
         const { request_id, cns, cpf, nameMedicine, status } = req.body;
 
         if (!cns || !nameMedicine) {
-            res.status(400).json({ error: 'Missing parameters' });
+            res.status(400).json({ error: 'Por favor, insira o CNS e o nome do remédio' });
             return;
         }
 

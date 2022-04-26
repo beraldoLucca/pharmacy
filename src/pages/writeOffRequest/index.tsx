@@ -29,7 +29,7 @@ const SearchPage: NextPage = () => {
     const [dados, setDados] = useState<Patient[]>([]);
 
     const { data, error } = useSWR(
-        textInput !== '' ? `/writeOffPatient/${textInput}` : null,
+        textInput !== '' ? `/writeOffRequest/${textInput}` : null,
         api
     );
       const handleSearch = useCallback(
@@ -57,7 +57,7 @@ const SearchPage: NextPage = () => {
                     </Link>
                 </form>
                 {data &&
-                        <Link href={`/writeOffPatient/${textInput}`} key={textInput}>
+                        <Link href={`/writeOffRequest/${textInput}`} key={textInput}>
                             <a>
                                 <h1 className="text-2xl border-2 border-box w-1/2 m-auto mt-4 py-2">
                                     Clique aqui para mais detalhes do paciente com CNS: {textInput}

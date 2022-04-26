@@ -22,7 +22,7 @@ export default function Home(){
           <Button className={styles.button}>Cadastrar paciente</Button>
           </Link>
           <br></br>
-          <Link href="/insertRequest">
+          <Link href="/newRequest">
           <Button className={styles.button}>Cadastrar pedido</Button>
           </Link>
           <br></br>
@@ -34,7 +34,7 @@ export default function Home(){
           <Button className={styles.button}>Visualizar histórico de pedido de um paciente</Button>
           </Link>
           <br></br>
-          <Link href="/writeOffPatient">
+          <Link href="/writeOffRequest">
           <Button className={styles.button}>Dar baixa em um pedido</Button>
           </Link>
           <br></br>

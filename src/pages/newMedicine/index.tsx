@@ -40,8 +40,9 @@ const NewMedicinePage: NextPage = () => {
             alert("Medicamento cadastrado com sucesso!");
             setName("");
             setQuantity("");
-        } catch (error) {
-            alert("Não foi possível cadastrar um novo medicamento.");
+        } catch (err) {
+            alert(err.response.data.error);
+            // alert("Não foi possível cadastrar um novo medicamento.");
         }
     };
 

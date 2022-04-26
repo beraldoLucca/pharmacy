@@ -24,7 +24,7 @@ export default async (
         const { cns, cpf, name, age, status } = req.body;
 
         if (!cns) {
-            res.status(400).json({ error: 'Missing parameters' });
+            res.status(400).json({ error: 'Por favor, insira o CNS' });
             return;
         }
 

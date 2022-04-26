@@ -53,8 +53,8 @@ const InsertRequestPage: NextPage = () => {
             setCNS("");
             setCPF("");
             setNameMedicine("");
-        } catch (error) {
-            alert("Não foi possível realizar um novo pedido");
+        } catch (err) {
+            alert(err.response.data.error);
         }
     };
 

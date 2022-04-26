@@ -51,8 +51,8 @@ const NewPatientPage: NextPage = () => {
             setCPF("");
             setName("");
             setAge("");
-        } catch (error) {
-            alert("Não foi possível cadastrar um novo paciente.");
+        } catch (err) {
+            alert(err.response.data.error);
         }
     };
 
