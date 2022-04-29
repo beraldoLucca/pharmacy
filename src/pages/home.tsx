@@ -18,6 +18,10 @@ export default function Home(){
           <Button className={styles.button}>Cadastrar remédio</Button>
           </Link>
           <br></br>
+          <Link href="/searchAllMedicines">
+          <Button className={styles.button}>Visualizar todos os medicamentos</Button>
+          </Link>
+          <br></br>
           <Link href="/newPatient">
           <Button className={styles.button}>Cadastrar paciente</Button>
           </Link>
