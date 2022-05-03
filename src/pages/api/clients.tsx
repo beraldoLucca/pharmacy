@@ -21,7 +21,7 @@ export default async (
 
     if (req.method === "POST") {
 
-        const { cns, cpf, name, age, status } = req.body;
+        const { cns, cpf, name, age, cellphone, address, status } = req.body;
 
         if (!cns) {
             res.status(400).json({ error: 'Por favor, insira o CNS' });
@@ -35,8 +35,8 @@ export default async (
             .findOne({ cns: cns})
         
         if(!cnsExists){
-            if(!name || !age){
-                res.status(400).json({ error: 'É necessário passar o CPF, o nome e a idade' });
+            if(!name || !age || !cellphone || !address){
+                res.status(400).json({ error: 'É necessário passar o nome, a idade, o telefone e o endereço' });
                 return;
             }
             const response = await db.collection('clients').insertOne({
@@ -44,6 +44,8 @@ export default async (
                 cpf,
                 name,
                 age,
+                cellphone,
+                address,
                 status: 'ATIVO',
             });
             res.status(200).json(response.ops[0])

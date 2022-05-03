@@ -20,7 +20,8 @@ interface Patient {
 }
 
 export default function patientPage(props): JSX.Element {
-    function clicar(cns: string){
+    const isAtivo = "ATIVO";
+    function inativar(cns: string){
         const data = {cns};
         try {
             axios.post("/api/clients", data);
@@ -41,8 +42,12 @@ export default function patientPage(props): JSX.Element {
             <td className={styles.td}>{prop.cpf}</td>
             <td className={styles.td}>{prop.name}</td>
             <td className={styles.td}>{prop.age}</td>
+            <td className={styles.td}>{prop.cellphone}</td>
+            <td className={styles.td}>{prop.address}</td>
             <td className={styles.td}>{prop.status}</td>
-            <button className={styles.buttonretirado} onClick={() => clicar(prop.cns)}>Inativar</button>
+            {prop.status==isAtivo && <td><button className={styles.buttonretirado} 
+            onClick={() => inativar(prop.cns)}>Inativar</button></td>}
+            {prop.status!=isAtivo && <td></td>}
         </tr>
     );
     return (
@@ -54,6 +59,8 @@ export default function patientPage(props): JSX.Element {
                         <th className={styles.td}>CPF</th>
                         <th className={styles.td}>NOME</th>
                         <th className={styles.td}>IDADE</th>
+                        <th className={styles.td}>TELEFONE</th>
+                        <th className={styles.td}>ENDEREÇO</th>
                         <th className={styles.td}>STATUS</th>
                         <th className={styles.td}></th>
                     </tr>

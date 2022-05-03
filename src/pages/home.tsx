@@ -26,12 +26,12 @@ export default function Home(){
           <Button className={styles.button}>Cadastrar paciente</Button>
           </Link>
           <br></br>
-          <Link href="/newRequest">
-          <Button className={styles.button}>Cadastrar pedido</Button>
-          </Link>
-          <br></br>
           <Link href="/searchAllPatients">
           <Button className={styles.button}>Visualizar todos os pacientes</Button>
+          </Link>
+          <br></br>
+          <Link href="/newRequest">
+          <Button className={styles.button}>Cadastrar pedido</Button>
           </Link>
           <br></br>
           <Link href="/searchPatientRequests">
