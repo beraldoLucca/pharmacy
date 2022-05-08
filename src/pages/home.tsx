@@ -34,6 +34,10 @@ export default function Home(){
           <Button className={styles.button}>Cadastrar pedido</Button>
           </Link>
           <br></br>
+          <Link href="/gatherMedicineAndSid">
+          <Button className={styles.button}>Vincular um remédio a um sid</Button>
+          </Link>
+          <br></br>
           <Link href="/searchPatientRequests">
           <Button className={styles.button}>Visualizar histórico de pedido de um paciente</Button>
           </Link>
