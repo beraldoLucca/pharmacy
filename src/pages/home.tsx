@@ -38,6 +38,10 @@ export default function Home(){
           <Button className={styles.button}>Vincular um remédio a um sid</Button>
           </Link>
           <br></br>
+          <Link href="/dateOfMedicineArrival">
+          <Button className={styles.button}>Cadastrar chegada de nova remessa de remédio</Button>
+          </Link>
+          <br></br>
           <Link href="/searchPatientRequests">
           <Button className={styles.button}>Visualizar histórico de pedido de um paciente</Button>
           </Link>
