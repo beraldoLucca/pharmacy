@@ -46,6 +46,8 @@ const NewMedicinePage: NextPage = () => {
     return (
         <div>
             <div>
+                <h2>Vínculo de remédio e SID</h2>
+                <br></br>
                 <form onSubmit={handleRegister}>
                     <input className={styles.inputText}
                         type="name"

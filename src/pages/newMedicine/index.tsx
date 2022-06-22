@@ -20,17 +20,11 @@ const NewMedicinePage: NextPage = () => {
 
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState('');
-  // const { data, error } = useSWR(
-  //     textInput !== '' ? `/writeOffPatient/${textInput}` : null,
-  //     api
-  // );
+
   const handleRegister =
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      //   setCNS(document.getElementsByTagName('input')[0].value);
-      //   setCPF(document.getElementsByTagName('input')[1].value);
-      //   setNameMedicine(document.getElementsByTagName('input')[2].value);
 
       const data = {
         name,
@@ -40,12 +34,9 @@ const NewMedicinePage: NextPage = () => {
       try {
         await axios.post("/api/medicines", data);
         alert("Medicamento cadastrado com sucesso!");
-        {/*setName("");
-      setQuantity("");*/}
-        Router.replace('/searchAllMedicines');
+        Router.replace('/gatherMedicineAndSid');
       } catch (err) {
         alert(err.response.data.error);
-        // alert("Não foi possível cadastrar um novo medicamento.");
       }
     };
 

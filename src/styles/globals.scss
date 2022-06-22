@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: sans-serif;
 }
 
 :root{
@@ -32,11 +31,6 @@
 
 body{
   background: var(--white);
-}
-
-body, input, textarea, button{
-  font: 150% 2rem sans-serif;
-  color: var(--black);
 }
 
 body{
