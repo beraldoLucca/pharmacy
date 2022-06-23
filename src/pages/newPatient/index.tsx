@@ -6,6 +6,7 @@ import Link from 'next/link';
 import styles from '../newRequest/stylesRequest.module.scss';
 import api from '../../../utils/api';
 import axios from 'axios';
+import Router from 'next/router';
 
 interface Patient {
     _id: string;
@@ -57,6 +58,7 @@ const NewPatientPage: NextPage = () => {
                 setAge("");
                 setCellphone("");
                 setAddress("");
+                Router.push("/searchAllPatients")
             } catch (err) {
                 alert(err.response.data.error);
             }
